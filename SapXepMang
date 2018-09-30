@@ -1,0 +1,51 @@
+# baiTapSwift
+
+enum Gender:String {
+    case male = "Nam" ,female = "Nu",lesbian = "les",gay = "gay"
+}
+enum SapXep {
+    case id, name, age, gender
+}
+
+struct Info {
+    var id:Int
+    var name:String
+    var age:Int
+    var gender: Gender
+    mutating func create (id: Int, name:String, age:Int, gender: Gender) {
+        self.name = name
+        self.age = age
+        self.gender = gender
+    }
+    static func sapxep(_ sapxep: SapXep,_ mang: inout Array<Info>) {
+        switch sapxep {
+        case .age:
+            //mang = mang.sorted(by: {$0.age < $1.age})
+            mang = mang.sorted(by: {(s1: Info, s2: Info) -> Bool in return s1.age < s2.age})
+            break
+        case .name:
+            mang = mang.sorted(by: {$0.name < $1.name})
+            break
+        default:
+            print("sap xep that bai")
+        }
+        
+    }
+}
+
+var fullInfo: Array<Info> = [
+    Info(id:1 ,name: "Nam", age: 26, gender: Gender.male),
+    Info(id:2 ,name: "Thuy", age: 22, gender: Gender.male),
+    Info(id:3 ,name: "Linh", age: 19, gender: Gender.male),
+    Info(id:4 ,name: "Anh", age: 23, gender: Gender.male)
+]
+
+
+Info.sapxep(.age, &fullInfo)
+print(fullInfo)
+Info.sapxep(.name, &fullInfo)
+print(fullInfo)
+
+------------------------------------
+[SwiftPlayground.Info(id: 3, name: "Linh", age: 19, gender: SwiftPlayground.Gender.male), SwiftPlayground.Info(id: 2, name: "Thuy", age: 22, gender: SwiftPlayground.Gender.male), SwiftPlayground.Info(id: 4, name: "Anh", age: 23, gender: SwiftPlayground.Gender.male), SwiftPlayground.Info(id: 1, name: "Nam", age: 26, gender: SwiftPlayground.Gender.male)]
+[SwiftPlayground.Info(id: 4, name: "Anh", age: 23, gender: SwiftPlayground.Gender.male), SwiftPlayground.Info(id: 3, name: "Linh", age: 19, gender: SwiftPlayground.Gender.male), SwiftPlayground.Info(id: 1, name: "Nam", age: 26, gender: SwiftPlayground.Gender.male), SwiftPlayground.Info(id: 2, name: "Thuy", age: 22, gender: SwiftPlayground.Gender.male)]
